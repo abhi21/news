@@ -70,13 +70,12 @@ def is_valid_article(link):
 while unvisited_articles.qsize() > 0:
     print("Item form queue dequeued \n")
     url = unvisited_articles.get()
+        outlinks = newspaper.build(url)
+
+    for outlink in outlinks:
+        unvisited_articles.put(outlink)
     #print(url)
     if is_valid_article(url) & (url not in visited_articles):
         print("Found valid url\n")
         visited_articles.add(url)
-        outlinks = newspaper.build(url)
         print("Links Visited So far: "+c)
-        for outlink in outlinks:
-            unvisited_articles.put(outlink)
-
-
